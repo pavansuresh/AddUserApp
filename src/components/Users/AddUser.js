@@ -10,7 +10,15 @@ const AddUser = (props) => {
   const [enteredAge, setEnteredAge] = useState("");
   const addUserHandler = (event) => {
     event.preventDefault();
-    console.log(enteredUserName , enteredAge)
+    if(enteredUserName.trim().length === 0 || enteredAge.trim().length ===0){
+        return;
+    }
+    if(enteredAge < 1 ){
+        return;
+    }
+    props.onAddUser(enteredAge, enteredAge);
+    setEnteredUserName('');
+    setEnteredAge('')
   };
 
   const userNameChangeHandler = (event) => {
@@ -36,6 +44,7 @@ const AddUser = (props) => {
             autoFocus
             autoComplete="off"
             onChange={userNameChangeHandler}
+            value={enteredUserName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -48,6 +57,7 @@ const AddUser = (props) => {
             label="Age"
             autoComplete="off"
             onChange={ageNameChangeHandler}
+            value={enteredAge}
           />
         </Grid>
         <Grid item xs={12}>
