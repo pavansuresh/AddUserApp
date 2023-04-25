@@ -4,20 +4,22 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 
 import Card from "../UI/Card";
+import ErrorMessage from "../UI/ErrrorMessage";
 
 const AddUser = (props) => {
+
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
+
   const addUserHandler = (event) => {
     event.preventDefault();
-    if(enteredUserName.trim().length === 0 || enteredAge.trim().length ===0){
+    if(enteredUserName.trim().length === 0 || enteredAge.trim().length === 0){
         return;
     }
-    if(enteredAge < 1 ){
+    if(+enteredAge < 1 ){
         return;
     }
-
-    props.onAddUser(enteredAge, enteredAge);
+    props.onAddUser(enteredUserName, enteredAge);
     setEnteredUserName('');
     setEnteredAge('')
   };
@@ -31,6 +33,9 @@ const AddUser = (props) => {
   }
 
   return (
+    <div>
+    <ErrorMessage title='An error occurred'
+    message="something went wrong"></ErrorMessage>
     <Card>
       <h3 style={{ color: "#1976d2" }}>Fill the form to add User</h3>
       <form onSubmit={addUserHandler}>
@@ -68,6 +73,7 @@ const AddUser = (props) => {
         </Grid>
       </form>
     </Card>
+    </div>
   );
 };
 
