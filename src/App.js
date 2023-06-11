@@ -1,25 +1,12 @@
-import { useState } from "react";
+import React from "react";
 
-import AddUser from "./components/Users/AddUser";
-import UserList from "./components/Users/UserLists";
+import Index from "./pages/dashboard";
 
 function App() {
-const [userList , setUserList] = useState([]);
-
-const whenSomeoneAddUser = (username , userage) => {
-  setUserList( (prevUsersList) => {
-     return [...prevUsersList, {
-         name: username,
-         age: userage,
-         id: Math.random().toString()
-     }]
-  });
-}
 
   return (
     <div className="app-container">
-        <AddUser onAddUser={whenSomeoneAddUser}/>
-        <UserList users={userList}/>
+      <Index/>
     </div>
   );
 }
