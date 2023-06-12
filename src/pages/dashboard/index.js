@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Container} from '@mui/material';
+import Swal from 'sweetalert2';
 
 import Add from './Add';
 import Header from './Header';
@@ -15,11 +16,32 @@ const Index = () => {
   const [isEditing, setIsEditing] = useState(false);
   
   const handleEdit = (id) => {
-      console.log(id)
+      const [employee] =  employees.filter(employee => employee.id === id);
+      setSelectedEmployees(employee);
+      setIsEditing(true)
   }
 
   const handleDelete = (id) => {
-    console.log('delete'+ id)
+    Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure you want to delete this?',
+      text: "you won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel'
+    }).then(result => {
+       if(result.value){
+        const[employee] = employees.filter(employee => employee.id === id)
+        Swal.fire({
+          icon: 'success',
+          title: 'Deleted!',
+          text: `${employee.firstName} ${employee.lastName}`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setEmployees(employees.filter(employee => employee.id !== id));
+       }
+    })
   }
   
   return (
